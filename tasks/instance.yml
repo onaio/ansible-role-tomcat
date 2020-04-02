@@ -68,10 +68,11 @@
     service_list:
       - name: "{{ instance.name | default(tomcat_name) }}"
         description: "{{ instance.name | default(tomcat_name) }}"
-        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/catalina.sh run"
+        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/startup.sh"
+        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/shudown.sh"
         user_name: "{{ instance.user | default(tomcat_user) }}"
         group_name: "{{ instance.group | default(tomcat_group) }}"
-        after: "{{ instance.service_after }}"
+        after: "{{ instance.start_after }}"
         restart_mode: "{{ instance.restart_mode }}"
         restart_seconds: "{{ instance.restart_seconds }}"
 
