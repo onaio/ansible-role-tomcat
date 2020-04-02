@@ -67,9 +67,9 @@
   vars:
     service_list:
       - name: "{{ instance.name | default(tomcat_name) }}"
-        description: "{{ instance.name | default(tomcat_name) }}"
+        description: "{{ instance.description | default(instance.name) }}"
         start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/startup.sh"
-        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/shudown.sh"
+        stop_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/shudown.sh"
         user_name: "{{ instance.user | default(tomcat_user) }}"
         group_name: "{{ instance.group | default(tomcat_group) }}"
         after: "{{ instance.start_after }}"
