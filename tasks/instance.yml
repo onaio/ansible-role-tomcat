@@ -63,7 +63,7 @@
 
 - name: create service instance
   import_role:
-    name: robertdebock.service
+    name: onaio.ansible-role-service
   vars:
     service_list:
       - name: "{{ instance.name | default(tomcat_name) }}"
@@ -71,6 +71,9 @@
         start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/catalina.sh run"
         user_name: "{{ instance.user | default(tomcat_user) }}"
         group_name: "{{ instance.group | default(tomcat_group) }}"
+        after: "{{ instance.service_after }}"
+        restart_mode: "{{ instance.restart_mode }}"
+        restart_seconds: "{{ instance.restart_seconds }}"
 
 - name: start and enable tomcat instance
   service:
