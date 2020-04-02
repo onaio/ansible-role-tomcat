@@ -73,6 +73,7 @@
         user_name: "{{ instance.user | default(tomcat_user) }}"
         group_name: "{{ instance.group | default(tomcat_group) }}"
         after: "{{ instance.start_after }}"
+        type: "{{ instance.service_type | default(tomcat_service_type) }}"
         restart_mode: "{{ instance.restart_mode }}"
         restart_seconds: "{{ instance.restart_seconds }}"
 
