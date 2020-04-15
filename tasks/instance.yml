@@ -70,7 +70,7 @@
 
 - name: create service instance
   import_role:
-    name: onaio.ansible-role-service
+    name: robertdebock.service
   vars:
     service_list:
       - name: "{{ instance.name | default(tomcat_name) }}"
