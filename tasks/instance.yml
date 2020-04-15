@@ -52,6 +52,13 @@
   notify:
     - restart tomcat instance
 
+- name: configure tomcat instance - web.xml
+  template:
+    src: web.xml.j2
+    dest: "{{ tomcat_directory }}/{{ instance.name }}/conf/web.xml"
+  notify:
+    - restart tomcat instance
+
 - name: configure tomcat instance - setenv.sh
   template:
     src: setenv.sh.j2
@@ -67,10 +74,15 @@
   vars:
     service_list:
       - name: "{{ instance.name | default(tomcat_name) }}"
-        description: "{{ instance.name | default(tomcat_name) }}"
-        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/catalina.sh run"
+        description: "{{ instance.description | default(instance.name) }}"
+        start_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/startup.sh"
+        stop_command: "{{ tomcat_directory }}/{{ instance.name | default(tomcat_directory) }}/bin/shutdown.sh"
         user_name: "{{ instance.user | default(tomcat_user) }}"
         group_name: "{{ instance.group | default(tomcat_group) }}"
+        after: "{{ instance.start_after }}"
+        type: "{{ instance.service_type | default(tomcat_service_type) }}"
+        restart_mode: "{{ instance.restart_mode }}"
+        restart_seconds: "{{ instance.restart_seconds }}"
 
 - name: start and enable tomcat instance
   service:
